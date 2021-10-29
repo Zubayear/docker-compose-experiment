@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  hello:
+    container_name: hello-service
+    image: hello
+    build:
+      context: hello-golang-service/
+      dockerfile: hello-service.Dockerfile
+    ports:
+      - "8081:8081" #internal port will be decided by the exposed port by Dockerfile
+    volumes:
+      - ./hello-golang-service/logs:/app/logs_container
+  
+  goodbye:
+    container_name: goodbye-service
+    image: goodbye
+    build:
+      context: goodbye-golang-service/
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./goodbye-golang-service/logs:/app/logs_container
+    
